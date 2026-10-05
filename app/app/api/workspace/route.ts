@@ -146,6 +146,8 @@ export async function POST(req: Request) {
       policy: null,
     };
     for (const kind of ["contract", "policy"] as const) {
+      // Sample text is already persisted in sections; no external file is needed.
+      if (mode === "demo") continue;
       if (kind === "policy" && !policyName) continue;
       const file = mode === "ai" ? form.get(`${kind}File`) : null;
       const key = `${encodeURIComponent(user)}/${id}/${kind}`;

@@ -60,6 +60,8 @@ Redeploy the latest `main` commit. Open the URL and enter:
 
 Choose **Explore sample contract** first. Review, edit, reject, download a summary, and upload a sample revision. Real extraction is available after adding the OpenAI key.
 
+Sample mode only needs the workspace password and migrated Turso database. Its fictional documents are downloaded from the version's saved text, so neither Blob storage nor an OpenAI key is needed for the demo. Real uploads still require private Blob storage.
+
 This is a **single-owner** workspace, not a multi-user team login. Anyone with the workspace password shares that workspace. Without a valid password, APIs cannot read or write records; client-supplied Sites identity headers are ignored. Missing password configuration returns a clear 503 setup message rather than exposing the app. HTTPS is supplied by Vercel. Browser HTTP authentication may remain cached until the browser session is closed.
 
 ## Local native Next.js check
