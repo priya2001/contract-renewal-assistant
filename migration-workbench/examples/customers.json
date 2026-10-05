@@ -1,0 +1,143 @@
+{
+  "source": {
+    "name": "Legacy CRM · customers",
+    "fields": [
+      { "name": "legacy_id", "type": "string", "required": true },
+      { "name": "name", "type": "string", "required": true },
+      { "name": "email_address", "type": "string", "required": true },
+      { "name": "age_text", "type": "string", "required": true },
+      { "name": "is_active", "type": "string", "required": true },
+      { "name": "joined_date", "type": "string", "required": true },
+      { "name": "balance_text", "type": "string", "required": true }
+    ]
+  },
+  "target": {
+    "name": "Customer staging",
+    "primaryKey": "customer_id",
+    "fields": [
+      { "name": "customer_id", "type": "string", "required": true },
+      { "name": "full_name", "type": "string", "required": true },
+      { "name": "email", "type": "email", "required": true },
+      {
+        "name": "age",
+        "type": "integer",
+        "required": true,
+        "min": 18,
+        "max": 120
+      },
+      { "name": "active", "type": "boolean", "required": true },
+      { "name": "joined_on", "type": "date", "required": true },
+      { "name": "balance", "type": "number", "required": true, "min": 0 }
+    ]
+  },
+  "records": [
+    {
+      "legacy_id": "CUS-001",
+      "name": " Aditi Sharma ",
+      "email_address": "ADITI@example.test",
+      "age_text": "28",
+      "is_active": "yes",
+      "joined_date": "2025-01-15",
+      "balance_text": "120.50"
+    },
+    {
+      "legacy_id": "CUS-002",
+      "name": "Kabir Mehta",
+      "email_address": "kabir@example.test",
+      "age_text": "34",
+      "is_active": "true",
+      "joined_date": "2024-06-20",
+      "balance_text": "80"
+    },
+    {
+      "legacy_id": "CUS-003",
+      "name": "Sara Khan",
+      "email_address": "sara@example.test",
+      "age_text": "22",
+      "is_active": "1",
+      "joined_date": "2025-02-28",
+      "balance_text": "25.25"
+    },
+    {
+      "legacy_id": "CUS-004",
+      "name": "Rohan Das",
+      "email_address": "rohan@example.test",
+      "age_text": "forty",
+      "is_active": "yes",
+      "joined_date": "2024-10-03",
+      "balance_text": "40"
+    },
+    {
+      "legacy_id": "CUS-005",
+      "name": "Neha Rao",
+      "email_address": "missing-at-sign",
+      "age_text": "31",
+      "is_active": "no",
+      "joined_date": "2025-03-01",
+      "balance_text": "0"
+    },
+    {
+      "legacy_id": "CUS-006",
+      "name": "Ishaan Patel",
+      "email_address": "ishaan@example.test",
+      "age_text": "45",
+      "is_active": "false",
+      "joined_date": "2023-12-09",
+      "balance_text": "300"
+    },
+    {
+      "legacy_id": "CUS-007",
+      "name": "Mira Sen",
+      "email_address": "mira@example.test",
+      "age_text": "27",
+      "is_active": "yes",
+      "joined_date": "04/05/2025",
+      "balance_text": "15"
+    },
+    {
+      "legacy_id": "CUS-002",
+      "name": "Duplicate Kabir",
+      "email_address": "kabir2@example.test",
+      "age_text": "34",
+      "is_active": "yes",
+      "joined_date": "2024-06-20",
+      "balance_text": "80"
+    },
+    {
+      "legacy_id": "CUS-009",
+      "name": "Dev Kapoor",
+      "email_address": "dev@example.test",
+      "age_text": "38",
+      "is_active": "no",
+      "joined_date": "2022-08-14",
+      "balance_text": "50"
+    },
+    {
+      "legacy_id": "CUS-010",
+      "name": "Tara Bose",
+      "email_address": "tara@example.test",
+      "age_text": "29",
+      "is_active": "true",
+      "joined_date": "2025-05-18",
+      "balance_text": "100.75"
+    },
+    {
+      "legacy_id": "CUS-011",
+      "name": "Arjun Nair",
+      "email_address": "arjun@example.test",
+      "age_text": "41",
+      "is_active": "1",
+      "joined_date": "2024-01-02",
+      "balance_text": "20"
+    },
+    {
+      "legacy_id": "CUS-012",
+      "name": "Zoya Ali",
+      "email_address": "zoya@example.test",
+      "age_text": "26",
+      "is_active": "yes",
+      "joined_date": "2025-06-10",
+      "balance_text": "3.50"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # ClauseDesk — Contract Obligation & Renewal Assistant
 
+**Second assignment:** [Transit — Agentic Data Migration Workbench](./migration-workbench/README.md) is a separate local application in `migration-workbench/`. Run it on port 4310; it does not use this application's Vercel deployment.
+
 **Live app:** [ClauseDesk on Vercel](https://contract-renewal-assistant.vercel.app/)
 
 Login username: `admin`. Use your configured `APP_ACCESS_PASSWORD` as the password; see the login instructions below.
