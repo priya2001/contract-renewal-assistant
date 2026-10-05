@@ -56,7 +56,9 @@ export default defineConfig(async ({ command }) => {
     resolve: {
       alias: [
         {
-          find: "@/lib/platform/runtime",
+          // A package import avoids Vinext's broad @/ tsconfig alias taking
+          // precedence and loading the native Vercel adapter during local dev.
+          find: "#platform-runtime",
           replacement: fileURLToPath(
             new URL("./lib/platform/runtime.cloudflare.ts", import.meta.url),
           ),

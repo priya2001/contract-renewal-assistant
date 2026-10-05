@@ -1,4 +1,4 @@
-import { setting } from "@/lib/platform/runtime";
+import { setting } from "#platform-runtime";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { z } from "zod";
 import { extractionSchema } from "./validation";
