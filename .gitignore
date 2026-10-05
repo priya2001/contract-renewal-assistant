@@ -1,0 +1,7 @@
+.DS_Store
+app/.sites-runtime/
+app/.wrangler/
+app/node_modules/
+app/dist/
+app/outputs/
+app/.dev.vars
