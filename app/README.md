@@ -2,6 +2,10 @@
 
 A private, single-contract workspace for cited extraction, human review, deterministic deadlines, version history, and reviewed summaries. This is an information-management tool, **not legal advice**.
 
+## Deploy on Vercel
+
+See [VERCEL.md](./VERCEL.md) for the native Next.js build, required storage/password environment variables, database migrations, and Vercel settings. The original Sites local workflow below is unchanged. Vercel uses a separate workspace/database.
+
 ## Run locally
 
 Requires Node.js 22.13+ and npm. From this directory:

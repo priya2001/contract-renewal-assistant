@@ -1,3 +1,8 @@
+import {
+  MAX_FILE_BYTES,
+  MAX_FILE_MB,
+  MAX_REQUEST_BYTES,
+} from "@/lib/contracts/limits";
 import { database, bucket } from "@/db";
 import {
   owner,
@@ -14,6 +19,7 @@ import type {
   Item,
   Section,
 } from "@/lib/contracts/types";
+export const maxDuration = 120;
 export async function GET(req: Request) {
   try {
     return Response.json(await loadWorkspace(await owner(req)), {
@@ -28,10 +34,10 @@ export async function POST(req: Request) {
   try {
     const user = await owner(req);
     const db = database();
-    if (Number(req.headers.get("content-length")) > 18 * 1024 * 1024)
+    if (Number(req.headers.get("content-length")) > MAX_REQUEST_BYTES)
       throw new HttpError(
         413,
-        "Files are too large. Use up to 8 MB per document.",
+        `Files are too large. Use up to ${MAX_FILE_MB} MB per document.`,
       );
     const form = await req.formData();
     const mode = form.get("mode") === "demo" ? "demo" : "ai";
@@ -123,8 +129,11 @@ export async function POST(req: Request) {
       policyName = policy?.name ?? null;
       for (const field of ["contractFile", "policyFile"]) {
         const file = form.get(field);
-        if (file instanceof File && file.size > 8 * 1024 * 1024)
-          throw new HttpError(413, "File limit is 8 MB per document.");
+        if (file instanceof File && file.size > MAX_FILE_BYTES)
+          throw new HttpError(
+            413,
+            `File limit is ${MAX_FILE_MB} MB per document.`,
+          );
       }
       const result = await extract(sections);
       extracted = result.items;

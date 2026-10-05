@@ -13,3 +13,7 @@ npm run dev -- --hostname 127.0.0.1
 Open the printed URL, sign into the local test workspace, and choose **Explore sample contract**.
 
 Read [`app/README.md`](./app/README.md) for the walkthrough, architecture, tests, limits, and secure API-key configuration. The demo works without a key; real AI extraction requires `OPENAI_API_KEY` on the server.
+
+## Vercel deployment
+
+Set the Vercel Root Directory to `app`. Follow [`app/VERCEL.md`](./app/VERCEL.md) for the native Next.js build and persistent storage/private-login configuration.

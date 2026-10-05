@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=22.13.0"
+    "node": "22.x"
   },
   "scripts": {
     "install:ci": "node scripts/install-ci.mjs",
@@ -12,16 +12,23 @@
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "test": "tsx --test tests/domain.test.ts",
+    "test": "tsx --test tests/*.test.ts",
     "test:api": "node tests/api-smoke.mjs",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/run-next.mjs typegen && tsc --noEmit",
     "postinstall": "node scripts/copy-pdf-worker.mjs",
-    "db:migrate": "node scripts/migrate-local.mjs"
+    "db:migrate": "node scripts/migrate-local.mjs",
+    "build:vercel": "node scripts/run-next.mjs build",
+    "dev:vercel": "node scripts/run-next.mjs dev",
+    "start:vercel": "node scripts/run-next.mjs start",
+    "db:migrate:vercel": "node --env-file-if-exists=.env.local scripts/migrate-turso.mjs",
+    "test:vercel": "node tests/vercel-http-smoke.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "@hookform/resolvers": "^5.7.1",
+    "@libsql/client": "^0.18.0",
     "@shadcn/react": "^0.3.0",
+    "@vercel/blob": "^2.8.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "^1.1.1",

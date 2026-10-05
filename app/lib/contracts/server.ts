@@ -28,6 +28,19 @@ export async function owner(request: Request) {
   return user.userId;
 }
 export function failure(error: unknown) {
+  if (
+    error instanceof Error &&
+    /^(Database|Document storage) is not configured/.test(error.message)
+  )
+    return Response.json({ error: error.message }, { status: 503 });
+  if (error instanceof Error && /no such table/i.test(error.message))
+    return Response.json(
+      {
+        error:
+          "Database schema is not ready. Run the deployment database migrations, then retry.",
+      },
+      { status: 503 },
+    );
   if (error instanceof SyntaxError)
     return Response.json(
       { error: "Malformed input. Check your document and try again." },

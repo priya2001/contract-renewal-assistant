@@ -1,3 +1,4 @@
+import { MAX_FILE_BYTES, MAX_FILE_MB } from "./limits";
 import type { DocumentData, Section } from "./types";
 export function textDocument(
   text: string,
@@ -29,8 +30,8 @@ export async function parseFile(
   file: File,
   document: "contract" | "policy",
 ): Promise<DocumentData> {
-  if (file.size > 8 * 1024 * 1024)
-    throw new Error("Each file must be 8 MB or smaller.");
+  if (file.size > MAX_FILE_BYTES)
+    throw new Error(`Each file must be ${MAX_FILE_MB} MB or smaller.`);
   const ext = file.name.split(".").pop()?.toLowerCase();
   const buffer = await file.arrayBuffer();
   if (ext === "pdf") {

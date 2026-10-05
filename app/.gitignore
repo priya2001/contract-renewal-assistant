@@ -50,3 +50,5 @@ next-env.d.ts
 !.dev.vars.example
 /public/pdf.worker.min.mjs
 *.tsbuildinfo
+
+!.env.example

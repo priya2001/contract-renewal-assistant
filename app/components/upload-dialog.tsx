@@ -1,4 +1,5 @@
 "use client";
+import { MAX_FILE_MB, MAX_REQUEST_BYTES } from "@/lib/contracts/limits";
 import { useEffect, useRef, useState } from "react";
 import { X, Upload, FileText, LoaderCircle, Info } from "lucide-react";
 import { parseFile, textDocument } from "@/lib/contracts/parse";
@@ -59,6 +60,18 @@ export default function UploadDialog({
       if (input === "file" && contract) form.set("contractFile", contract);
       if (parsedPolicy) form.set("policy", JSON.stringify(parsedPolicy));
       if (policy) form.set("policyFile", policy);
+      const requestSize = [...form.values()].reduce(
+        (bytes, value) =>
+          bytes +
+          (value instanceof File
+            ? value.size
+            : new TextEncoder().encode(value).byteLength),
+        0,
+      );
+      if (requestSize > MAX_REQUEST_BYTES - 16384)
+        throw new Error(
+          "The combined upload is too large. Use smaller files or pasted text.",
+        );
       setBusy("Extracting clauses and checking sources…");
       const response = await fetch("/api/workspace", {
         method: "POST",
@@ -151,7 +164,9 @@ export default function UploadDialog({
           <label className="dropzone">
             <Upload size={26} />
             <strong>{contract?.name ?? "Choose a contract"}</strong>
-            <span>PDF, DOCX or TXT · up to 8 MB · 50 PDF pages</span>
+            <span>
+              PDF, DOCX or TXT · up to {MAX_FILE_MB} MB · 50 PDF pages
+            </span>
             <input
               aria-label="Contract file"
               type="file"

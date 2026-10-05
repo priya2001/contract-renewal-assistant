@@ -1,12 +1,12 @@
-import { env } from "cloudflare:workers";
+import { setting } from "@/lib/platform/runtime";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { z } from "zod";
 import { extractionSchema } from "./validation";
 import type { Section } from "./types";
 export function aiConfig() {
   return {
-    key: env.OPENAI_API_KEY || process.env.OPENAI_API_KEY,
-    model: env.OPENAI_MODEL || process.env.OPENAI_MODEL || "gpt-4.1-mini",
+    key: setting("OPENAI_API_KEY"),
+    model: setting("OPENAI_MODEL") || "gpt-4.1-mini",
   };
 }
 // Keep the provider schema free of optional properties and use local refinements after parsing.

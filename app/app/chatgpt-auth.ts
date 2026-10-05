@@ -1,3 +1,4 @@
+import { validBasicAuth } from "@/lib/platform/basic-auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -20,6 +21,21 @@ const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
+  if (process.env.NEXT_PUBLIC_DEPLOYMENT_TARGET === "vercel") {
+    if (
+      !(await validBasicAuth(
+        requestHeaders.get("authorization"),
+        process.env.APP_ACCESS_PASSWORD,
+      ))
+    )
+      return null;
+    return {
+      userId: "private-owner",
+      displayName: "Workspace owner",
+      email: "",
+      fullName: null,
+    };
+  }
   const userId = requestHeaders.get(USER_ID_HEADER);
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!userId || !email) return null;
