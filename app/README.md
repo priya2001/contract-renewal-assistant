@@ -1,5 +1,7 @@
 # ClauseDesk — Contract Obligation & Renewal Assistant
 
+**Live app:** [ClauseDesk on Vercel](https://contract-renewal-assistant.vercel.app/)
+
 A private, single-contract workspace for cited extraction, human review, deterministic deadlines, version history, and reviewed summaries. This is an information-management tool, **not legal advice**.
 
 ## Deploy on Vercel

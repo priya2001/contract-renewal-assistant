@@ -1,5 +1,9 @@
 # ClauseDesk — Contract Obligation & Renewal Assistant
 
+**Live app:** [ClauseDesk on Vercel](https://contract-renewal-assistant.vercel.app/)
+
+Login username: `admin`. Use your configured `APP_ACCESS_PASSWORD` as the password; see the login instructions below.
+
 ClauseDesk helps you review one contract and an optional organizational policy, track obligations and renewal dates, and preserve corrections across contract versions. Every extracted finding links back to its source text.
 
 **This is an information-management tool, not legal advice.**
