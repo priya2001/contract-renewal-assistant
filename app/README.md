@@ -6,9 +6,15 @@ A private, single-contract workspace for cited extraction, human review, determi
 
 See [VERCEL.md](./VERCEL.md) for the native Next.js build, required storage/password environment variables, database migrations, and Vercel settings. The original Sites local workflow below is unchanged. Vercel uses a separate workspace/database.
 
+## Login credentials
+
+For Vercel and native Next.js, the username is **`admin`** and the password is the value you configured in **`APP_ACCESS_PASSWORD`** (at least 24 characters). There is no default password. Set it in Vercel Environment Variables and redeploy, or in ignored `.env.local` for native local development. Never put an actual password in this README. See the [root README](../README.md#login-which-id-and-password-should-i-enter) for password generation and setup.
+
+The local Sites workflow below uses **Sign in to your workspace** with a local test identity; it does not use the Vercel password. The private hosted Site uses platform sign-in.
+
 ## Run locally
 
-Requires Node.js 22.13+ and npm. From this directory:
+Requires Node.js 22.x (at least 22.13) and npm. From this directory:
 
 ```sh
 npm ci
@@ -50,7 +56,7 @@ The integration uses the [OpenAI Responses API with structured output](https://d
 - New document versions retain old originals and corrections, mark all prior approvals potentially stale, and create new pending findings. Historical versions are read-only.
 - Upcoming/past dates, reminder dates, unresolved rules, review progress, search and filters.
 - Reviewed summary UI and downloadable Markdown containing approved/non-stale facts, citations, uncertainty and separate pending questions. Rejected facts are excluded.
-- Private platform sign-in, owner-scoped server queries, cross-origin write rejection, optimistic write protection, D1 database and R2 original-document storage.
+- Sites platform sign-in or Vercel single-owner password access, owner-scoped queries, cross-origin write rejection and optimistic write protection. Sites uses D1/R2; Vercel uses Turso/private Blob. Sample documents are downloadable from saved source text without Blob.
 - Optional browser WebMCP read/navigation tools. They never approve or modify findings.
 
 ## Demo walkthrough
@@ -69,7 +75,7 @@ The sample belongs to the same single-contract workspace. Use real uploads as ve
 
 ## Limits and explicit exclusions
 
-- 8 MB per file, 50 pages per PDF, 80,000 extracted characters across both documents, up to 100 findings per extraction.
+- 8 MB per file on Sites or 1.5 MB per file on Vercel; 50 pages per PDF, 80,000 extracted characters across both documents, up to 100 findings per extraction.
 - Text only: scanned PDFs, images, OCR, electronic signatures, payments, external calendars, email delivery and legal recommendations are not implemented.
 - Reminders are dates shown on the dashboard, **not background notifications**.
 - Fixed and calendar-day relative rules are supported. Event-relative rules need a known event date; unspecified conventions remain unresolved. Monthly days 29–31 need clarification. Other recurring schedules remain textual until clarified/entered as dated items.
@@ -95,8 +101,8 @@ The unit suite checks leap days, invalid dates, date offsets, business-day refus
 
 ## Architecture
 
-- React + TypeScript, Vinext/Vite, Cloudflare Workers.
-- D1 for owner-scoped workspace/version/item/audit records; R2 for original files.
+- React + TypeScript; Vinext/Vite on Cloudflare Workers or native Next.js on Vercel.
+- Sites: D1 records and R2 originals. Vercel: Turso/libSQL records and private Blob originals. Sample documents are generated from versioned database text.
 - `app/page.tsx`: workspace dashboard and views.
 - `components/upload-dialog.tsx`: files/pasted text and upload workflow.
 - `components/review-detail.tsx`: source inspection and reviewed corrections.
